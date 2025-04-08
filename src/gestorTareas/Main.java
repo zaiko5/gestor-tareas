@@ -10,7 +10,7 @@ public class Main {
             String url = "jdbc:sqlite:C:/Users/HP/Desktop/o/PROYECTOS/gestorTareas/tareasDB.db"; //Direccion url de la base de datos
             try (Connection conn = DriverManager.getConnection(url)) { //Representando la conexcion con un obejto connection.
                 if (conn != null) { //Si la conexion funciona
-                    app();
+                    app(conn);
                     conn.close();
                 }
             } catch(SQLException e) { //Atrapamos la excepcion del tipo SQL si no se pudo conectar con la DB
