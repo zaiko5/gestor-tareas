@@ -8,6 +8,12 @@ public class App {
         int opcion;
         do{
             opcion = menuPrincipal();
+            switch(opcion){
+                case 1:
+                    Tarea tarea = menuRegistrarTarea();
+                    System.out.println("Tarea registrada");
+                    break;
+            }
         }while(opcion != 6);
     }
 }
