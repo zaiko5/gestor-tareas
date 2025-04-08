@@ -1,0 +1,7 @@
+#ignorar directorios.
+
+/nbproject/
+/test/
+/build/
+**/build/
+**/*.mf
