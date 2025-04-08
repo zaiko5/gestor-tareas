@@ -31,19 +31,19 @@ public class Consola {
         descripcion = sc.nextLine();
         System.out.println("RESPONSABLE: ");
         responsable = sc.nextLine();
-        try{
-            do{
-                System.out.println("DIAS PARA REALIZAR LA TAREA: ");
+        do{
+            try{
+                System.out.println("DIAS PARA REALIZAR TAREA: ");
                 dias = sc.nextInt();
                 sc.nextLine();
                 if(dias < 1){
-                    System.out.println("Digita un valor valido");
+                    System.out.println("Digita un dia valido");
                 }
-            }while(dias < 1);
-        }catch(Exception e){
-            System.out.println("Digita un dia valido");
-            sc.nextLine();
-        }
+            }catch(Exception e){
+                System.out.println("Digita un dia valido");
+                sc.nextLine();
+            }
+        }while(dias < 1);
         return new Tarea(descripcion,responsable,dias);
     }
 }
