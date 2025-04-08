@@ -26,8 +26,12 @@ public class Tarea {
         return estado;
     }
 
-    public LocalDate getFecha() {
+    public LocalDate getFechaInicial() {
         return fechaInicial;
+    }
+    
+    public LocalDate getFechaFinal(){
+        return fechaFinal;
     }
 
     public String getResponsable() {
