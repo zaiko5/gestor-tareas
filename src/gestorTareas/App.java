@@ -25,6 +25,7 @@ public class App {
                     break;
                 case 3: //Mostrar tareas filtradas por usuarios
                     String usuario = pedirUsuario();
+                    mostrarTareasFiltradas(conn,usuario);
             }
         }while(opcion != 6);
     }

@@ -26,7 +26,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     public static void registrarUsuario(Connection conn, Tarea tarea){ //Funcion que inserta al usuario en la entidad de usuarios si es que no 
         String q = "Insert into usuarios(nombre) values (?)";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
-            stmt.setString(1, tarea.getResponsable());
+            stmt.setString(1, tarea.getResponsable().toUpperCase());
             stmt.executeUpdate();
         }catch(SQLException e){
             System.out.println("Error: " + e);
@@ -37,7 +37,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         String qUsuario = "Select idUsuario from usuarios where nombre = ?";
         String q = "Insert into tareas(descripcion,idUsuario,fechaInicio,fechaFin,completada) values(?,?,?,?,?)";
         try(PreparedStatement stmtUsuario = conn.prepareStatement(qUsuario)){
-            stmtUsuario.setString(1,tarea.getResponsable());
+            stmtUsuario.setString(1,tarea.getResponsable().toUpperCase());
             ResultSet rsUsuario = stmtUsuario.executeQuery();
             if(rsUsuario.next()) {
                 int id = rsUsuario.getInt("idUsuario"); // Ahora sí declarado correctamente
@@ -78,6 +78,35 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             }
             if(!hayTareas){ //Si no hay tareas se muestra el mensaje.
                 System.out.println("No hay tareas para mostrar");
+            }
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
+    }
+    
+    public static void mostrarTareasFiltradas(Connection conn, String usuario){
+        String q = "Select t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
+                + "join usuarios u on u.idUsuario = t.idUsuario where u.nombre = ?";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            stmt.setString(1, usuario.toUpperCase());
+            ResultSet rs = stmt.executeQuery();
+            boolean hayTareas = false;
+            int i = 1;
+            while(rs.next()){ //Si hay tareas... se muestra la tarea.
+                if (i == 1){
+                    System.out.println("TAREAS");
+                }
+                hayTareas = true; //El booleano hayTareas se vuelve true.
+                String tarea = rs.getString("tarea");
+                String nombre = rs.getString("nombre");
+                String fechaInicio = rs.getString("inicio");
+                String fechaFin = rs.getString("final");
+                String estado = rs.getString("estado"); //Y se muestra la tarea.
+                System.out.println(i + ". Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
+                i++;
+            }
+            if(!hayTareas){ //Si no hay tareas se muestra el mensaje.
+                System.out.println("El usuario no existe");
             }
         }catch(SQLException e){
             System.out.println("Error: " + e);
