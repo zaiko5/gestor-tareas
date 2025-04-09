@@ -69,8 +69,8 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             while(rs.next()){ //Mientras haya tareas para mostrar...
                 String descripcion = rs.getString("descripcion");
                 int id = rs.getInt("idUsuario");
-                String fechaInicio = rs.getString("fehcaInicio");
-                String fechaFin = rs.getString("fehcaDin");
+                String fechaInicio = rs.getString("fechaInicio");
+                String fechaFin = rs.getString("fechaFin");
                 String completada = rs.getString("completada");
                 try(PreparedStatement stmtUsuario = conn.prepareStatement(qUsuario)){
                     stmtUsuario.setInt(1, id);
