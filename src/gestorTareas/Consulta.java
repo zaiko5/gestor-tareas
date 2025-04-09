@@ -46,4 +46,13 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             System.out.println("Error: " + e);
         }
     }
+    
+    public static void mostrarTodasTareas(Connection conn, Tarea tarea){
+        String q = "Select * from tareas";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            ResultSet rs = stmt.executeQuery(); //Trayendo todas las tareas, las hechas o no hechas
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
+    }
 }
