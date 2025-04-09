@@ -57,29 +57,20 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     }
     
     public static void mostrarTodasTareas(Connection conn){
-        String q = "Select * from tareas";
-        String qUsuario = "Select nombre from usuarios where idUsuario = ?"; //Consulta para traer el nombre del usuario y mostrar el nombre en vez del id
+        String q = "Select t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
+                + "join usuarios u on u.idUsuario = t.idUsuario";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
-            ResultSet rs = stmt.executeQuery(); //Trayendo todas las tareas, las hechas o no hechas.
-            if(!rs.next()){
-                System.out.println("No hay tareas para mostrar.");
-                return;
-            }
+            ResultSet rs = stmt.executeQuery();
+            boolean hayTareas = false;
             int i = 1;
-            while(rs.next()){ //Mientras haya tareas para mostrar...
-                String descripcion = rs.getString("descripcion");
-                int id = rs.getInt("idUsuario");
-                String fechaInicio = rs.getString("fechaInicio");
-                String fechaFin = rs.getString("fechaFin");
-                String completada = rs.getString("completada");
-                try(PreparedStatement stmtUsuario = conn.prepareStatement(qUsuario)){
-                    stmtUsuario.setInt(1, id);
-                    ResultSet rsUsuario = stmtUsuario.executeQuery();
-                    if(rsUsuario.next()){
-                        String nombre = rsUsuario.getString("nombre");
-                        System.out.println(i + ". Tarea: " + descripcion + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + completada);
-                    }
-                }
+            while(rs.next()){
+                hayTareas = true;
+                String tarea = rs.getString("tarea");
+                String nombre = rs.getString("nombre");
+                String fechaInicio = rs.getString("inicio");
+                String fechaFin = rs.getString("final");
+                String estado = rs.getString("estado");
+                System.out.println(i + ". Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
                 i++;
             }
         }catch(SQLException e){
