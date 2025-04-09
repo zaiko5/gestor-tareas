@@ -34,14 +34,23 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     }
     
     public static void registrarTarea(Connection conn, Tarea tarea){
+        String qUsuario = "Select idUsuario from usuarios where nombre = ?";
         String q = "Insert into tareas(descripcion,idUsuario,fechaInicio,fechaFin,completada) values(?,?,?,?,?)";
-        try(PreparedStatement stmt = conn.prepareStatement(q)){
-            stmt.setString(1, tarea.getDescripcion()); //Insertando todos los datos
-            stmt.setString(2, tarea.getResponsable());
-            stmt.setObject(3, tarea.getFechaInicial());
-            stmt.setObject(4, tarea.getFechaFinal());
-            stmt.setString(5, tarea.getEstado());
-            stmt.executeUpdate();
+        try(PreparedStatement stmtUsuario = conn.prepareStatement(qUsuario)){
+            stmtUsuario.setString(1,tarea.getResponsable());
+            ResultSet rsUsuario = stmtUsuario.executeQuery();
+            if(rsUsuario.next()) {
+                int id = rsUsuario.getInt("idUsuario"); // Ahora sí declarado correctamente
+
+                try (PreparedStatement stmt = conn.prepareStatement(q)) {
+                    stmt.setString(1, tarea.getDescripcion());
+                    stmt.setInt(2, id); // Usamos setInt ya que es un entero
+                    stmt.setObject(3, tarea.getFechaInicial());
+                    stmt.setObject(4, tarea.getFechaFinal());
+                    stmt.setString(5, tarea.getEstado());
+                    stmt.executeUpdate();
+                }
+            }
         }catch(SQLException e){
             System.out.println("Error: " + e);
         }
@@ -50,7 +59,16 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     public static void mostrarTodasTareas(Connection conn, Tarea tarea){
         String q = "Select * from tareas";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
-            ResultSet rs = stmt.executeQuery(); //Trayendo todas las tareas, las hechas o no hechas
+            ResultSet rs = stmt.executeQuery(); //Trayendo todas las tareas, las hechas o no hechas.
+            if(!rs.next()){
+                System.out.println("No hay tareas para mostrar.");
+                return;
+            }
+            int i = 1;
+            while(rs.next()){ //Mientras haya tareas para mostrar...
+                String descripcion = rs.getString("descripcion");
+                String descripcion = rs.getString("descripcion");
+            }
         }catch(SQLException e){
             System.out.println("Error: " + e);
         }
