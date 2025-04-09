@@ -32,4 +32,18 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             System.out.println("Error: " + e);
         }
     }
+    
+    public static void registrarTarea(Connection conn, Tarea tarea){
+        String q = "Insert into tareas(descripcion,idUsuario,fechaInicio,fechaFin,completada) values(?,?,?,?,?)";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            stmt.setString(1, tarea.getDescripcion()); //Insertando todos los datos
+            stmt.setString(2, tarea.getResponsable());
+            stmt.setObject(3, tarea.getFechaInicial());
+            stmt.setObject(4, tarea.getFechaFinal());
+            stmt.setString(5, tarea.getEstado());
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
+    }
 }

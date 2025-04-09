@@ -16,9 +16,8 @@ public class App {
                     boolean existeUsuario = verificarExistenciaUsuario(conn,tarea);
                     if(!existeUsuario){ //Si el usuario no existe, se registrará en ambas entidades.
                         registrarUsuario(conn,tarea);
-                        System.out.println("Usuario");
                     }
-                    System.out.println("Ya existe");
+                    registrarTarea(conn,tarea);
                     System.out.println("Tarea registrada");
                     break;
             }
