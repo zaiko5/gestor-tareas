@@ -14,7 +14,11 @@ public class App {
                 case 1:
                     Tarea tarea = menuRegistrarTarea();
                     boolean existeUsuario = verificarExistenciaUsuario(conn,tarea);
-                    System.out.println(existeUsuario);
+                    if(!existeUsuario){ //Si el usuario no existe, se registrará en ambas entidades.
+                        registrarUsuario(conn,tarea);
+                        System.out.println("Usuario");
+                    }
+                    System.out.println("Ya existe");
                     System.out.println("Tarea registrada");
                     break;
             }

@@ -12,13 +12,24 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             }
             while(rs.next()){
                 String nombre = rs.getString("nombre");
-                if(nombre.toLowerCase() == tarea.getResponsable().toLowerCase()){
+                if(nombre != null && nombre.equalsIgnoreCase(tarea.getResponsable())){
                     return true;
                 }
             }
+            rs.close();
         }catch(SQLException e){
             System.out.println("Error " + e);
         }
         return false;
+    }
+    
+    public static void registrarUsuario(Connection conn, Tarea tarea){ //Funcion que inserta al usuario en la entidad de usuarios si es que no 
+        String q = "Insert into usuarios(nombre) values (?)";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            stmt.setString(1, tarea.getResponsable());
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
     }
 }
