@@ -116,11 +116,12 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     public static int contarTareas(Connection conn){
         String q = "Select count(*) as contador from tareas where completada = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
-            String estado = "no hecha";
+            String estado = "No hecha";
             stmt.setString(1,estado);
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
-                return rs.getInt("contador");
+                int contador = rs.getInt("contador");
+                return contador;
             }
         }catch(SQLException e){
             System.out.println("Error: " + e);
