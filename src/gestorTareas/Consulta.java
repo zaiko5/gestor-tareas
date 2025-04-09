@@ -64,6 +64,9 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             boolean hayTareas = false;
             int i = 1;
             while(rs.next()){
+                if (i == 1){
+                    System.out.println("TAREAS");
+                }
                 hayTareas = true;
                 String tarea = rs.getString("tarea");
                 String nombre = rs.getString("nombre");
@@ -72,6 +75,9 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
                 String estado = rs.getString("estado");
                 System.out.println(i + ". Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
                 i++;
+            }
+            if(!hayTareas){
+                System.out.println("No hay tareas para mostrar");
             }
         }catch(SQLException e){
             System.out.println("Error: " + e);
