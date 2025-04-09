@@ -112,4 +112,26 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             System.out.println("Error: " + e);
         }
     }
+    
+    public static int contarTareas(Connection conn){
+        String q = "Select count(*) as contador from tareas where completada = ?";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            String estado = "no hecha";
+            stmt.setString(1,estado);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt("contador");
+            }
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
+        return 0;
+    }
+    
+    public static void marcarTarea(Connection conn, int tarea){
+        if(tarea == 0){
+            return;
+        }
+        
+    }
 }
