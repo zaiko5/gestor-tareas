@@ -56,8 +56,9 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         }
     }
     
-    public static void mostrarTodasTareas(Connection conn, Tarea tarea){
+    public static void mostrarTodasTareas(Connection conn){
         String q = "Select * from tareas";
+        String qUsuario = "Select nombre from usuarios where idUsuario = ?"; //Consulta para traer el nombre del usuario y mostrar el nombre en vez del id
         try(PreparedStatement stmt = conn.prepareStatement(q)){
             ResultSet rs = stmt.executeQuery(); //Trayendo todas las tareas, las hechas o no hechas.
             if(!rs.next()){
@@ -67,7 +68,19 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
             int i = 1;
             while(rs.next()){ //Mientras haya tareas para mostrar...
                 String descripcion = rs.getString("descripcion");
-                String descripcion = rs.getString("descripcion");
+                int id = rs.getInt("idUsuario");
+                String fechaInicio = rs.getString("fehcaInicio");
+                String fechaFin = rs.getString("fehcaDin");
+                String completada = rs.getString("completada");
+                try(PreparedStatement stmtUsuario = conn.prepareStatement(qUsuario)){
+                    stmtUsuario.setInt(1, id);
+                    ResultSet rsUsuario = stmtUsuario.executeQuery();
+                    if(rsUsuario.next()){
+                        String nombre = rsUsuario.getString("nombre");
+                        System.out.println(i + ". Tarea: " + descripcion + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + completada);
+                    }
+                }
+                i++;
             }
         }catch(SQLException e){
             System.out.println("Error: " + e);

@@ -20,6 +20,9 @@ public class App {
                     registrarTarea(conn,tarea);
                     System.out.println("Tarea registrada");
                     break;
+                case 2:
+                    mostrarTodasTareas(conn);
+                    break;
             }
         }while(opcion != 6);
     }
