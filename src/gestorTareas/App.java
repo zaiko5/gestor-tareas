@@ -12,7 +12,7 @@ public class App {
             opcion = menuPrincipal();
             switch(opcion){
                 case 1:
-                    Tarea tarea = menuRegistrarTarea();
+                    Tarea tarea = menuRegistrarTarea(); //Registrar una tarea.
                     boolean existeUsuario = verificarExistenciaUsuario(conn,tarea);
                     if(!existeUsuario){ //Si el usuario no existe, se registrará en ambas entidades.
                         registrarUsuario(conn,tarea);
@@ -20,9 +20,11 @@ public class App {
                     registrarTarea(conn,tarea);
                     System.out.println("Tarea registrada");
                     break;
-                case 2:
+                case 2: //Mostrar todas las tareas.
                     mostrarTodasTareas(conn);
                     break;
+                case 3: //Mostrar tareas filtradas por usuarios
+                    String usuario = pedirUsuario();
             }
         }while(opcion != 6);
     }

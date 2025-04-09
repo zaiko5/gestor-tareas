@@ -46,4 +46,16 @@ public class Consola {
         }while(dias < 1);
         return new Tarea(descripcion,responsable,dias);
     }
+    
+    public static String pedirUsuario(){
+        String usuario = "";
+        do{
+            System.out.println("FILTRAR TAREAS POR USUARIO\nEscribe el usuario que quieres que se busque: ");
+            usuario = sc.nextLine();
+            if(usuario.equals("")){
+                System.out.println("Debes ingresar un valor");
+            }
+        }while(usuario.equals(""));
+        return usuario;
+    }
 }
