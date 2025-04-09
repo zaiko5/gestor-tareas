@@ -33,7 +33,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         }
     }
     
-    public static void registrarTarea(Connection conn, Tarea tarea){
+    public static void registrarTarea(Connection conn, Tarea tarea){ //Funcion para registrar una tarea.
         String qUsuario = "Select idUsuario from usuarios where nombre = ?";
         String q = "Insert into tareas(descripcion,idUsuario,fechaInicio,fechaFin,completada) values(?,?,?,?,?)";
         try(PreparedStatement stmtUsuario = conn.prepareStatement(qUsuario)){
@@ -56,27 +56,27 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         }
     }
     
-    public static void mostrarTodasTareas(Connection conn){
+    public static void mostrarTodasTareas(Connection conn){ //Funcion para mostrar todas las tareas.
         String q = "Select t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
                 + "join usuarios u on u.idUsuario = t.idUsuario";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
             ResultSet rs = stmt.executeQuery();
             boolean hayTareas = false;
             int i = 1;
-            while(rs.next()){
+            while(rs.next()){ //Si hay taras... se muestra la tarea.
                 if (i == 1){
                     System.out.println("TAREAS");
                 }
-                hayTareas = true;
+                hayTareas = true; //El booleano hayTareas se vuelve true.
                 String tarea = rs.getString("tarea");
                 String nombre = rs.getString("nombre");
                 String fechaInicio = rs.getString("inicio");
                 String fechaFin = rs.getString("final");
-                String estado = rs.getString("estado");
+                String estado = rs.getString("estado"); //Y se muestra la tarea.
                 System.out.println(i + ". Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
                 i++;
             }
-            if(!hayTareas){
+            if(!hayTareas){ //Si no hay tareas se muestra el mensaje.
                 System.out.println("No hay tareas para mostrar");
             }
         }catch(SQLException e){
