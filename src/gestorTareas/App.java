@@ -27,6 +27,7 @@ public class App {
                 case 3: //Mostrar tareas filtradas por usuarios
                     String usuario = pedirUsuario();
                     mostrarTareasFiltradas(conn,usuario);
+                    break;
                 case 4: //Marcar tarea como hecha.
                     boolean hayTareas = mostrarTareasNoHechas(conn);
                     ArrayList<Integer> ids = retornarIDSNoHechos(conn);
@@ -34,7 +35,9 @@ public class App {
                         int tareaModificada = pedirTarea(ids);
                         marcarTarea(conn,tareaModificada);
                     }
+                    break;
                 case 5: //Eliminar tareas independientemente de su estado
+                    System.out.println("Saliendo de la BBDD");
                     break;
             }
         }while(opcion != 5);
