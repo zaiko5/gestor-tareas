@@ -82,7 +82,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         }
     }
     
-    public static void mostrarTareasFiltradas(Connection conn, String usuario){
+    public static void mostrarTareasFiltradas(Connection conn, String usuario){ //Funcion para mostrar las tareas en relacion a un usuario
         String q = "Select t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
                 + "join usuarios u on u.idUsuario = t.idUsuario where u.nombre = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
@@ -111,7 +111,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         }
     }
     
-    public static boolean mostrarTareasNoHechas(Connection conn){
+    public static boolean mostrarTareasNoHechas(Connection conn){ //Funcion para mostrar las tareas no hechas
         String q = "Select t.idTarea as id, t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
                 + "join usuarios u on u.idUsuario = t.idUsuario where t.completada = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
@@ -141,7 +141,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         return false;
     }
     
-    public static ArrayList retornarIDSNoHechos(Connection conn){
+    public static ArrayList retornarIDSNoHechos(Connection conn){ //Funcion que retorna el id de las tareas no hechas para mostrar al momento de querer eliminar una
         ArrayList<Integer> ids = new ArrayList<>();
         String q = "Select idTarea from tareas where completada = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
@@ -158,7 +158,7 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         return ids;
     }
     
-    public static void marcarTarea(Connection conn, int tarea){
+    public static void marcarTarea(Connection conn, int tarea){ //Funcion que marca una tarea como hecha
         String q = "Update tareas set completada = ? where idTarea = ? ";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
             String estado = "Hecha";

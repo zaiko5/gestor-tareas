@@ -25,7 +25,7 @@ public class Consola {
         return opcion;
     }
     
-    public static Tarea menuRegistrarTarea(){
+    public static Tarea menuRegistrarTarea(){ //Funcion que pide los datos de la tarea a registrar
         String descripcion, responsable;
         int dias = 0;
         System.out.println("REGISTRANDO TAREA\nDESCRIPCION: ");
@@ -48,7 +48,7 @@ public class Consola {
         return new Tarea(descripcion,responsable,dias);
     }
     
-    public static String pedirUsuario(){
+    public static String pedirUsuario(){ //Funcion que pide el nombre de un usuario.
         String usuario = "";
         do{
             System.out.println("FILTRAR TAREAS POR USUARIO\nEscribe el usuario que quieres que se busque: ");
@@ -60,12 +60,12 @@ public class Consola {
         return usuario;
     }
     
-    public static int pedirTarea(ArrayList ids){
+    public static int pedirTarea(ArrayList ids){ //Funcion que pide el id de una tarea
         do{
             try{
                 System.out.println("Digita el numero de la tarea a marcar como hecha");
                 opcion = sc.nextInt();
-                if(!ids.contains(opcion)){
+                if(!ids.contains(opcion)){ //Si la opcion digitada no existe en la lista de ids
                     System.out.println("Digita un valor correcto");
                 }
             }catch(Exception e){
