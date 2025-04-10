@@ -1,5 +1,6 @@
 //Donde se manejaran las entradas de datos
 package gestorTareas;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Consola {
@@ -59,23 +60,14 @@ public class Consola {
         return usuario;
     }
     
-    public static int pedirTarea(int contador){
-        if(contador == 0){
-            System.out.println("No hay tareas para marcar como hechas");
-            return 0;
+    public static int pedirTarea(ArrayList ids){
+        try{
+            System.out.println("Digita el numero de la tarea a marcar como hecha");
+            opcion = sc.nextInt();
+        }catch(Exception e){
+            System.out.println("Digita un valor correcto");
+            sc.nextLine();
         }
-        do{
-            try{
-                System.out.println("Digita el numero de la tarea a marcar como hecha");
-                opcion = sc.nextInt();
-                if(opcion > contador){
-                    System.out.println("Digita un valor correcto");
-                }
-            }catch(Exception e){
-                System.out.println("Digita un valor correcto");
-                sc.nextLine();
-            }
-        }while(opcion > contador);
-        return opcion;
+    return opcion;
     }
 }

@@ -1,6 +1,7 @@
 //Donde se manejaran las consultas a SQL
 package gestorTareas;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Consulta { //Funcion que verifica si ya existe el usuario de la tarea nueva en la tabla de usuarios
     public static boolean verificarExistenciaUsuario(Connection conn, Tarea tarea){
@@ -143,20 +144,21 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         return false;
     }
     
-    public static int contarTareas(Connection conn){
-        String q = "Select count(*) as contador from tareas where completada = ?";
+    public static ArrayList retornarIDSNoHechos(Connection conn){
+        ArrayList<Integer> ids = new ArrayList<>();
+        String q = "Select idTarea from tareas where completada = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
             String estado = "No hecha";
             stmt.setString(1,estado);
             ResultSet rs = stmt.executeQuery();
-            if(rs.next()){
-                int contador = rs.getInt("contador");
-                return contador;
+            while(rs.next()){ //Si hay tareas... se muestra la tarea.
+                int id = rs.getInt("idTarea");
+                ids.add(id);
             }
         }catch(SQLException e){
             System.out.println("Error: " + e);
         }
-        return 0;
+        return ids;
     }
     
     public static void marcarTarea(Connection conn, int tarea){

@@ -4,6 +4,7 @@ package gestorTareas;
 import static gestorTareas.Consola.*;
 import static gestorTareas.Consulta.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App {
     public static void app(Connection conn){
@@ -28,8 +29,9 @@ public class App {
                     mostrarTareasFiltradas(conn,usuario);
                 case 4: //Marcar tarea como hecha.
                     boolean hayTareas = mostrarTareasNoHechas(conn);
+                    ArrayList<Integer> ids = retornarIDSNoHechos(conn);
                     if(hayTareas){
-                        int tareaEliminada = pedirTarea();
+                        int tareaEliminada = pedirTarea(ids);
                     }
             }
         }while(opcion != 6);
