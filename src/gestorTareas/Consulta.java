@@ -114,25 +114,22 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     }
     
     public static boolean mostrarTareasNoHechas(Connection conn){
-        String q = "Select t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
+        String q = "Select t.idTarea as id, t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
                 + "join usuarios u on u.idUsuario = t.idUsuario where t.completada = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){
             String estado = "No hecha";
             stmt.setString(1,estado);
             ResultSet rs = stmt.executeQuery();
             boolean hayTareas = false;
-            int i = 1;
+            System.out.println("TAREAS");
             while(rs.next()){ //Si hay tareas... se muestra la tarea.
-                if (i == 1){
-                    System.out.println("TAREAS");
-                }
                 hayTareas = true; //El booleano hayTareas se vuelve true.
+                int id = rs.getInt("id");
                 String tarea = rs.getString("tarea");
                 String nombre = rs.getString("nombre");
                 String fechaInicio = rs.getString("inicio");
                 String fechaFin = rs.getString("final");//Y se muestra la tarea.
-                System.out.println(i + ". Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
-                i++;
+                System.out.println("ID: " + id + " || Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
             }
             if(!hayTareas){ //Si no hay tareas se muestra el mensaje.
                 System.out.println("No hay tareas para mostrar");
@@ -163,9 +160,6 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     }
     
     public static void marcarTarea(Connection conn, int tarea){
-        if(tarea == 0){
-            return;
-        }
         
     }
 }

@@ -29,8 +29,7 @@ public class App {
                 case 4: //Marcar tarea como hecha.
                     boolean hayTareas = mostrarTareasNoHechas(conn);
                     if(hayTareas){
-                        int contadorTareas = contarTareas(conn);
-                        int tareaEliminada = pedirTarea(contadorTareas);
+                        int tareaEliminada = pedirTarea();
                     }
             }
         }while(opcion != 6);
