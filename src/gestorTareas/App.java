@@ -32,7 +32,10 @@ public class App {
                     ArrayList<Integer> ids = retornarIDSNoHechos(conn);
                     if(hayTareas){
                         int tareaModificada = pedirTarea(ids);
+                        marcarTarea(conn,tareaModificada);
                     }
+                case 5: //Eliminar tareas independientemente de su estado
+                    break;
             }
         }while(opcion != 6);
     }

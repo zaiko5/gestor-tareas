@@ -162,6 +162,15 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
     }
     
     public static void marcarTarea(Connection conn, int tarea){
-        
+        String q = "Update tareas set completada = ? where idTarea = ? ";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            String estado = "Hecha";
+            stmt.setString(1, estado);
+            stmt.setInt(2, tarea);
+            stmt.executeUpdate();
+            System.out.println("Tarea completada correctamente!");
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
     }
 }
