@@ -61,13 +61,18 @@ public class Consola {
     }
     
     public static int pedirTarea(ArrayList ids){
-        try{
-            System.out.println("Digita el numero de la tarea a marcar como hecha");
-            opcion = sc.nextInt();
-        }catch(Exception e){
-            System.out.println("Digita un valor correcto");
-            sc.nextLine();
-        }
+        do{
+            try{
+                System.out.println("Digita el numero de la tarea a marcar como hecha");
+                opcion = sc.nextInt();
+                if(!ids.contains(opcion)){
+                    System.out.println("Digita un valor correcto");
+                }
+            }catch(Exception e){
+                System.out.println("Digita un valor correcto");
+                sc.nextLine();
+            }
+        }while(!ids.contains(opcion));
     return opcion;
     }
 }

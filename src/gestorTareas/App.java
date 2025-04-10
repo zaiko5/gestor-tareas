@@ -31,7 +31,7 @@ public class App {
                     boolean hayTareas = mostrarTareasNoHechas(conn);
                     ArrayList<Integer> ids = retornarIDSNoHechos(conn);
                     if(hayTareas){
-                        int tareaEliminada = pedirTarea(ids);
+                        int tareaModificada = pedirTarea(ids);
                     }
             }
         }while(opcion != 6);
