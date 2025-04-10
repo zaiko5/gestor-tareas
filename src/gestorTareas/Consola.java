@@ -11,7 +11,7 @@ public class Consola {
         System.out.println("MENU");
         do{
             try{
-                System.out.println("1. REGISTRAR NUEVA TAREA\n2. MOSTRAR TODAS LAS TAREAS\n3. FILTRAR TAREA POR USUARIO\n4. MARCAR TAREA COMO HECHA\n5. ELIMINAR TAREAS\n6. SALIR");
+                System.out.println("1. REGISTRAR NUEVA TAREA\n2. MOSTRAR TODAS LAS TAREAS\n3. FILTRAR TAREA POR USUARIO\n4. MARCAR TAREA COMO HECHA\n5. SALIR");
                 opcion = sc.nextInt();
                 sc.nextLine();
                 if(opcion < 1 || opcion > 6){

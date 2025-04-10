@@ -37,6 +37,6 @@ public class App {
                 case 5: //Eliminar tareas independientemente de su estado
                     break;
             }
-        }while(opcion != 6);
+        }while(opcion != 5);
     }
 }
