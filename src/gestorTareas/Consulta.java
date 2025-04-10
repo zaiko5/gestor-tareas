@@ -113,6 +113,39 @@ public class Consulta { //Funcion que verifica si ya existe el usuario de la tar
         }
     }
     
+    public static boolean mostrarTareasNoHechas(Connection conn){
+        String q = "Select t.descripcion as tarea,u.nombre as nombre,t.fechaInicio as inicio,t.fechaFin as final,t.completada as estado from tareas t "
+                + "join usuarios u on u.idUsuario = t.idUsuario where t.completada = ?";
+        try(PreparedStatement stmt = conn.prepareStatement(q)){
+            String estado = "No hecha";
+            stmt.setString(1,estado);
+            ResultSet rs = stmt.executeQuery();
+            boolean hayTareas = false;
+            int i = 1;
+            while(rs.next()){ //Si hay tareas... se muestra la tarea.
+                if (i == 1){
+                    System.out.println("TAREAS");
+                }
+                hayTareas = true; //El booleano hayTareas se vuelve true.
+                String tarea = rs.getString("tarea");
+                String nombre = rs.getString("nombre");
+                String fechaInicio = rs.getString("inicio");
+                String fechaFin = rs.getString("final");//Y se muestra la tarea.
+                System.out.println(i + ". Tarea: " + tarea + " || Responsable: " + nombre + " || Fecha inicio: " + fechaInicio + " || Fehca fin: " + fechaFin + " || Estado: " + estado);
+                i++;
+            }
+            if(!hayTareas){ //Si no hay tareas se muestra el mensaje.
+                System.out.println("No hay tareas para mostrar");
+            }
+            else{
+                return hayTareas;
+            }
+        }catch(SQLException e){
+            System.out.println("Error: " + e);
+        }
+        return false;
+    }
+    
     public static int contarTareas(Connection conn){
         String q = "Select count(*) as contador from tareas where completada = ?";
         try(PreparedStatement stmt = conn.prepareStatement(q)){

@@ -27,9 +27,11 @@ public class App {
                     String usuario = pedirUsuario();
                     mostrarTareasFiltradas(conn,usuario);
                 case 4: //Marcar tarea como hecha.
-                    mostrarTodasTareas(conn);
-                    int contadorTareas = contarTareas(conn);
-                    int tareaEliminada = pedirTarea(contadorTareas);
+                    boolean hayTareas = mostrarTareasNoHechas(conn);
+                    if(hayTareas){
+                        int contadorTareas = contarTareas(conn);
+                        int tareaEliminada = pedirTarea(contadorTareas);
+                    }
             }
         }while(opcion != 6);
     }
